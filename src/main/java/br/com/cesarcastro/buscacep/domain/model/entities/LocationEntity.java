@@ -1,5 +1,6 @@
 package br.com.cesarcastro.buscacep.domain.model.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,7 +24,9 @@ public class LocationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(columnDefinition = "double")
     private BigDecimal latitude;
+    @Column(columnDefinition = "double")
     private BigDecimal longitude;
     @OneToOne(mappedBy = "localizacaoAproximada")
     private CEPEntity cep;
