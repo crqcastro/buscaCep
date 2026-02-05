@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suppressions PUBLIC
+        "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+        "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+<suppressions>
+    <!-- Liberar JUnit/Hamcrest só em src/test/java -->
+    <suppress
+            files=".*[\\/]src[\\/]test[\\/]java[\\/].*"
+            checks="IllegalImport"
+            message=".*(junit|org\.junit|org\.junit\.jupiter|org\.hamcrest).*"/>
+
+    <!-- (Opcional) liberar também em src/e2e/java -->
+    <suppress
+            files=".*[\\/]src[\\/]e2e[\\/]java[\\/].*"
+            checks="IllegalImport"
+            message=".*(junit|org\.junit|org\.junit\.jupiter|org\.hamcrest).*"/>
+</suppressions>

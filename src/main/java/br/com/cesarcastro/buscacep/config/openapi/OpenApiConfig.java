@@ -29,7 +29,7 @@ public class OpenApiConfig {
                          @Value("${info.app.version}") String appVersion,
                          @Value("${info.app.description}") String description,
                          Environment env,
-                         @Value("${APP_ENDPOINT_BASE}") String appEndpointBase,
+                         @Value("${app.endpoint-base}") String appEndpointBase,
                          @Value("${server.port}") Integer port) {
         this.appName = appName;
         this.appVersion = appVersion;
@@ -73,7 +73,7 @@ public class OpenApiConfig {
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")))
                 .externalDocs(new ExternalDocumentation()
                         .description(description)
-                        .url("https://github.com/crqcastro/desafio-votacao"))
+                        .url("https://cesarcastro.com.br"))
                 .servers(servers);
     }
 }

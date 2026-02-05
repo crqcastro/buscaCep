@@ -45,13 +45,13 @@ spring:
   jpa:
     open-in-view: false
     hibernate:
-      dialect: ${SPRING_JPA_DATABASE_PLATFORM}
-      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO}
+      dialect: org.hibernate.dialect.MySQLDialect
+      ddl-auto: update
     show-sql: false
   datasource:
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
-    url: ${SPRING_DATASOURCE_URL}
+    username: cesarcas_logradouros
+    password: A&(Ijr@FN.x.I~QM
+    url: jdbc:mysql://cesarcastro.com.br:3306/cesarcas_logradouros?autoReconnect=true&useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true
     hikari:
       minimumIdle: 1
       idleTimeout: 10000
@@ -63,3 +63,9 @@ logging:
     root: error
     org.springframework.web: error
     br.com.cesarcastro.buscacep: error
+
+app:
+  endpoint-base: https://apis.cesarcastro.com.br/buscacep
+
+viacep:
+  url-template: https://viacep.com.br/ws/%s/json

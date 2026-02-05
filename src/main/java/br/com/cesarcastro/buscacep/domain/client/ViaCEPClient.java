@@ -19,7 +19,7 @@ public class ViaCEPClient {
 
     public ViaCEPClient(Client client,
                         ObjectMapper om,
-                        @Value("${VIACEP_URL_TEMPLATE}")
+                        @Value("${viacep.url-template}")
                          String urlBase) {
         this.client = client;
         this.om = om;

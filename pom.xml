@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.5</version>
+        <version>3.5.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>br.com.cesarcastro</groupId>
@@ -20,33 +20,58 @@
             <email>cesarrqc@gmail.com</email>
         </developer>
     </developers>
+    <url>
+        https://cesarcastro.com.br
+    </url>
+
     <properties>
-        <resource.delimiter>@</resource.delimiter>
+        <!-- JAVA -->
         <java.version>17</java.version>
+
+        <!-- MAVEN -->
         <maven.compiler.release>17</maven.compiler.release>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <springdoc-openapi-ui.version>1.6.14</springdoc-openapi-ui.version>
-        <java-dotenv.version>5.2.2</java-dotenv.version>
-        <r2dbc-postgresql.version>1.0.7.RELEASE</r2dbc-postgresql.version>
-        <reactor-test.version>3.5.9</reactor-test.version>
-        <mapstruct.version>1.6.0.Beta1</mapstruct.version>
-        <easy-random-core.version>4.0.0</easy-random-core.version>
+        <resource.delimiter>@</resource.delimiter>
+
+        <!-- OPENAPI -->
+        <springdoc-openapi-ui.version>1.6.15</springdoc-openapi-ui.version>
+        <springdoc-openapi-starter-webmvc-ui.version>2.8.11</springdoc-openapi-starter-webmvc-ui.version>
+
+        <!-- MAPSTRUCT -->
+        <mapstruct.version>1.6.3</mapstruct.version>
+
+        <!-- FLYWAY -->
+        <flyway-mysql.version>8.2.1</flyway-mysql.version>
+
+        <!-- LOMBOK -->
+        <lombok.version>1.18.36</lombok.version>
+
+        <!-- CHECKSTYLE -->
+        <checkstyle-maven-plugin.version>3.2.0</checkstyle-maven-plugin.version>
+
+        <!-- TESTS -->
+        <archunit-junit5.version>1.4.1</archunit-junit5.version>
+        <maven.surefire.version>3.2.5</maven.surefire.version>
+        <maven.failsafe.version>3.2.5</maven.failsafe.version>
+        <build-helper-maven-plugin.version>3.6.0</build-helper-maven-plugin.version>
+
+        <!-- SONAR -->
         <coverage.line>0</coverage.line>
         <coverage.branch>0</coverage.branch>
         <jacoco.reportPath>${project.basedir}/../target/jacoco.exec</jacoco.reportPath>
-        <jacoco.coverage.min>0.7</jacoco.coverage.min>
+        <jacoco.coverage.min>0.8</jacoco.coverage.min>
         <sonar.coverage.jacoco.xmlReportPaths>
-            ${project.basedir}/../target/jacoco.xml
+            ./target/site/jacoco-aggregate/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
-        <!-- SONAR -->
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
         <sonar.jacoco.reportPath>${jacoco.reportPath}</sonar.jacoco.reportPath>
         <sonar.projectName>${project.name}</sonar.projectName>
         <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
+        <sonar.host.url>https://sonarcloud.io/</sonar.host.url>
         <sonar.coverage.exclusions>
-            **/domain/repositories/**/*,
+            **/domain/repository/**/*,
             **/annotations/**/*,
             **/annotations/*,
             **/config/**/*,
@@ -54,83 +79,44 @@
             **/domain/model/**/*,
             **/mappers/**/*,
             **/mappers/*,
-            **/support/exceptions/**/*,
-            **/support/exceptions/*,
-            **/BuscacepApplication.java
+            **/domain/exceptions/**/*,
+            **/domain/exceptions/*,
+            **/CcshortenerApplication.java
         </sonar.coverage.exclusions>
         <sonar.exclusions>
-            **/domain/repositories/**/*,
+            **/domain/repository/**/*,
             **/config/**/*,
             **/config/*,
             **/domain/model/**/*,
             **/mappers/**/*,
             **/mappers/*,
-            **/support/exceptions/**/*,
-            **/support/exceptions/*,
-            **/BuscacepApplication.java
+            **/domain/exceptions/**/*,
+            **/domain/exceptions/*,
+            **/CcshortenerApplication.java
         </sonar.exclusions>
-        <!-- PLUGIN VERSION -->
         <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
         <sonar.scm.exclusions.disabled>false</sonar.scm.exclusions.disabled>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
-        <springdoc-openapi-starter-common.version>2.2.0</springdoc-openapi-starter-common.version>
-        <springdoc-openapi-starter-webmvc-ui.version>2.2.0</springdoc-openapi-starter-webmvc-ui.version>
+
         <mysql-connector-j.version>9.1.0</mysql-connector-j.version>
+        <easy-random-core.version>4.0.0</easy-random-core.version>
+
     </properties>
     <dependencies>
-        <!-- SPRING - START -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jackson-databind</artifactId>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
-        <!-- SPRING - END -->
-        <!-- ACTUATOR - START -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jackson-databind</artifactId>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!-- ACTUATOR - END -->
-        <!-- LOGGING - START -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-logging</artifactId>
-        </dependency>
-        <!-- LOGGING - END -->
-        <!-- DATABASE - START -->
+
+        <!-- ORM -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-            <version>${mysql-connector-j.version}</version>
-        </dependency>
-        <!-- DATABASE - END -->
-        <!-- OPENAPI - START -->
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-common</artifactId>
-            <version>${springdoc-openapi-starter-common.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>${springdoc-openapi-starter-webmvc-ui.version}</version>
-        </dependency>
-        <!-- OPENAPI - END -->
         <!-- OAKCLIENT - START -->
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
@@ -138,55 +124,94 @@
             <version>5.0.0-alpha.12</version>
         </dependency>
         <!-- OAKCLIENT - END -->
-        <!-- LOMBOK - START -->
+
+        <!-- DATABASE -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>${mysql-connector-j.version}</version>
+        </dependency>
+        <!-- DATABASE - END -->
+
+        <!-- OPENAPI -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc-openapi-starter-webmvc-ui.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${springdoc-openapi-ui.version}</version>
+        </dependency>
+
+        <!-- LOMBOK -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
             <optional>true</optional>
         </dependency>
-        <!-- LOMBOK - END -->
-        <!-- MAPPER - START -->
+
+        <!-- MAPSTRUCT -->
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${mapstruct.version}</version>
         </dependency>
-        <!-- MAPPER - END -->
-        <!-- TEST - START -->
+
+        <!-- QRCODE -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.5.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>3.5.3</version>
+        </dependency>
+
+        <!-- TESTS -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>objenesis</artifactId>
-                    <groupId>org.objenesis</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
+
+        <!-- ARCHTEST -->
         <dependency>
-            <groupId>io.github.cdimascio</groupId>
-            <artifactId>java-dotenv</artifactId>
-            <version>${java-dotenv.version}</version>
+            <groupId>com.tngtech.archunit</groupId>
+            <artifactId>archunit-junit5</artifactId>
+            <version>${archunit-junit5.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- HTTP E2E -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- H2 - TESTS -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- ACRTUATOR -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.jeasy</groupId>
             <artifactId>easy-random-core</artifactId>
             <version>${easy-random-core.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jackson-databind</artifactId>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
-        <!-- TEST - END -->
     </dependencies>
     <profiles>
         <profile>
@@ -196,7 +221,7 @@
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>0.8.7</version>
+                        <version>0.8.8</version>
                         <executions>
                             <execution>
                                 <id>prepare-agent</id>
@@ -206,6 +231,7 @@
                             </execution>
                             <execution>
                                 <id>report</id>
+                                <phase>verify</phase>
                                 <goals>
                                     <goal>report</goal>
                                 </goals>
@@ -222,7 +248,6 @@
         </profile>
     </profiles>
     <build>
-        <finalName>${project.name}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -249,25 +274,95 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.0</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>br.com.cesarcastro.votacao.VotacaoApplication</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-checkstyle-plugin</artifactId>-->
+<!--                <version>${checkstyle-maven-plugin.version}</version>-->
+<!--                <configuration>-->
+<!--                    <consoleOutput>true</consoleOutput>-->
+<!--                    <includeTestSourceDirectory>true</includeTestSourceDirectory>-->
+<!--                    <failOnViolation>true</failOnViolation>-->
+<!--                    <failsOnError>true</failsOnError>-->
+<!--                    <configLocation>config/checkstyle/checkstyle.xml</configLocation>-->
+<!--                    <suppressionsLocation>config/checkstyle/checkstyle-suppressions.xml</suppressionsLocation>-->
+<!--                    <suppressionsFileExpression>checkstyle-suppressions.xml</suppressionsFileExpression>-->
+<!--                    <propertyExpansion>config_loc=${project.basedir}/config/checkstyle</propertyExpansion>-->
+
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>validate</id>-->
+<!--                        <phase>validate</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>check</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>${build-helper-maven-plugin.version}</version>
                 <executions>
                     <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
+                        <id>add-test-source</id>
+                        <phase>generate-test-sources</phase>
+                        <goals><goal>add-test-source</goal></goals>
+                        <configuration>
+                            <sources>
+                                <source>src/e2e/java</source>
+                                <source>src/arch-test/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-test-resource</id>
+                        <phase>generate-test-resources</phase>
+                        <goals><goal>add-test-resource</goal></goals>
+                        <configuration>
+                            <resources>
+                                <resource><directory>src/e2e/resources</directory></resource>
+                                <resource><directory>src/arch-test/resources</directory></resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
+                <executions>
+                    <!-- Unit tests -->
+                    <execution>
+                        <id>unit-tests</id>
+                        <phase>test</phase>
+                        <goals><goal>test</goal></goals>
+                        <configuration>
+                            <includes>
+                                <include>**/*Test.java</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/*E2E*.java</exclude>
+                                <exclude>**/*ArchTest.java</exclude>
+                                <exclude>**/*ArchitectureTest.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                    <!-- Architecture (ArchUnit) -->
+                    <execution>
+                        <id>architecture-tests</id>
+                        <phase>test</phase>
+                        <goals><goal>test</goal></goals>
+                        <configuration>
+                            <includes>
+                                <include>**/*ArchTest.java</include>
+                                <include>**/*ArchitectureTest.java</include>
+                            </includes>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -284,6 +379,13 @@
                 <version>${jacoco-maven-plugin.version}</version>
                 <executions>
                     <execution>
+                        <id>report-aggregate</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report-aggregate</goal>
+                        </goals>
+                    </execution>
+                    <execution>
                         <id>default-prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
@@ -297,15 +399,15 @@
                         </goals>
                         <configuration>
                             <excludes>
-                                <exclude>**/domain/repositories/**/*</exclude>
+                                <exclude>**/domain/repository/**/*</exclude>
                                 <exclude>**/config/**/*</exclude>
                                 <exclude>**/config/*</exclude>
                                 <exclude>**/domain/model/**/*</exclude>
                                 <exclude>**/mappers/**/*</exclude>
                                 <exclude>**/mappers/*</exclude>
-                                <exclude>**/support/exceptions/**/*</exclude>
-                                <exclude>**/support/exceptions/*</exclude>
-                                <exclude>**/BuscacepApplication.java</exclude>
+                                <exclude>**/domain/exceptions/**/*</exclude>
+                                <exclude>**/domain/exceptions/*</exclude>
+                                <exclude>**/CcshortenerApplication.java</exclude>
                             </excludes>
                         </configuration>
                     </execution>
@@ -316,15 +418,15 @@
                         </goals>
                         <configuration>
                             <excludes>
-                                <exclude>**/domain/repositories/**/*</exclude>
+                                <exclude>**/domain/repository/**/*</exclude>
                                 <exclude>**/config/**/*</exclude>
                                 <exclude>**/config/*</exclude>
                                 <exclude>**/domain/model/**/*</exclude>
                                 <exclude>**/mappers/**/*</exclude>
                                 <exclude>**/mappers/*</exclude>
-                                <exclude>**/support/exceptions/**/*</exclude>
-                                <exclude>**/support/exceptions/*</exclude>
-                                <exclude>**/BuscacepApplication.java</exclude>
+                                <exclude>**/domain/exceptions/**/*</exclude>
+                                <exclude>**/domain/exceptions/*</exclude>
+                                <exclude>**/CcshortenerApplication.java</exclude>
                             </excludes>
                             <rules>
                                 <rule>
@@ -333,7 +435,7 @@
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.70</minimum>
+                                            <minimum>0.80</minimum>
                                         </limit>
                                     </limits>
                                 </rule>

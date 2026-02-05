@@ -8,8 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @Disabled
 class BuscacepApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
 }
